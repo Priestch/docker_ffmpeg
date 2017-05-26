@@ -85,13 +85,13 @@ RUN       DIR=$(mktemp -d) && cd ${DIR} && \
 #RUN  \
 ## x265 http://x265.org/
 #        DIR=$(mktemp -d) && cd ${DIR} && \
-RUN        DIR=$(mktemp -d) && cd ${DIR} && \
-        curl -sL https://download.videolan.org/pub/videolan/x265/x265_${X265_VERSION}.tar.gz  | \
-        tar -zx && \
-        cd x265_${X265_VERSION}/build/linux && \
-        ./multilib.sh && \
-        make -C 8bit install && \
-        rm -rf ${DIR}
+#RUN        DIR=$(mktemp -d) && cd ${DIR} && \
+#        curl -sL https://download.videolan.org/pub/videolan/x265/x265_${X265_VERSION}.tar.gz  | \
+#        tar -zx && \
+#        cd x265_${X265_VERSION}/build/linux && \
+#        ./multilib.sh && \
+#        make -C 8bit install && \
+#        rm -rf ${DIR}
 #        rm -rf ${DIR} && \
 #RUN  \
 ## libogg https://www.xiph.org/ogg/
@@ -108,15 +108,15 @@ RUN        DIR=$(mktemp -d) && cd ${DIR} && \
 #RUN  \
 ## libopus https://www.opus-codec.org/
 #        DIR=$(mktemp -d) && cd ${DIR} && \
-RUN        DIR=$(mktemp -d) && cd ${DIR} && \
-        curl -sLO http://downloads.xiph.org/releases/opus/opus-${OPUS_VERSION}.tar.gz && \
-        echo ${OPUS_SHA256SUM} | sha256sum --check && \
-        tar -zx --strip-components=1 -f opus-${OPUS_VERSION}.tar.gz && \
-        autoreconf -fiv && \
-        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
-        make && \
-        make install && \
-        rm -rf ${DIR}
+#RUN        DIR=$(mktemp -d) && cd ${DIR} && \
+#        curl -sLO http://downloads.xiph.org/releases/opus/opus-${OPUS_VERSION}.tar.gz && \
+#        echo ${OPUS_SHA256SUM} | sha256sum --check && \
+#        tar -zx --strip-components=1 -f opus-${OPUS_VERSION}.tar.gz && \
+#        autoreconf -fiv && \
+#        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
+#        make && \
+#        make install && \
+#        rm -rf ${DIR}
 #        rm -rf ${DIR} && \
 #RUN  \
 ## libvorbis https://xiph.org/vorbis/
@@ -147,13 +147,13 @@ RUN        DIR=$(mktemp -d) && cd ${DIR} && \
 #RUN  \
 ## libvpx https://www.webmproject.org/code/
 #        DIR=$(mktemp -d) && cd ${DIR} && \
-RUN        DIR=$(mktemp -d) && cd ${DIR} && \
-        curl -sL https://codeload.github.com/webmproject/libvpx/tar.gz/v${VPX_VERSION} | \
-        tar -zx --strip-components=1 && \
-        ./configure --prefix="${SRC}" --enable-vp8 --enable-vp9 --enable-pic --disable-debug --disable-examples --disable-docs --disable-install-bins --enable-shared && \
-        make && \
-        make install && \
-        rm -rf ${DIR}
+#RUN        DIR=$(mktemp -d) && cd ${DIR} && \
+#        curl -sL https://codeload.github.com/webmproject/libvpx/tar.gz/v${VPX_VERSION} | \
+#        tar -zx --strip-components=1 && \
+#        ./configure --prefix="${SRC}" --enable-vp8 --enable-vp9 --enable-pic --disable-debug --disable-examples --disable-docs --disable-install-bins --enable-shared && \
+#        make && \
+#        make install && \
+#        rm -rf ${DIR}
 #        rm -rf ${DIR} && \
 #RUN  \
 ## libmp3lame http://lame.sourceforge.net/
@@ -182,14 +182,16 @@ RUN        DIR=$(mktemp -d) && cd ${DIR} && \
 ##RUN  \
 ### fdk-aac https://github.com/mstorsjo/fdk-aac
 #        DIR=$(mktemp -d) && cd ${DIR} && \
-#        curl -sL https://github.com/mstorsjo/fdk-aac/archive/v${FDKAAC_VERSION}.tar.gz | \
-#        curl -sL http://downloads.sourceforge.net/opencore-amr/fdk-aac-${FDKAAC_VERSION}.tar.gz | \
-#        tar -zx --strip-components=1 && \
-#        autoreconf -fiv && \
-#        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
-#        make && \
-#        make install && \
-#        make distclean && \
+RUN        DIR=$(mktemp -d) && cd ${DIR} && \
+        curl -sL https://github.com/mstorsjo/fdk-aac/archive/v${FDKAAC_VERSION}.tar.gz | \
+        curl -sL http://downloads.sourceforge.net/opencore-amr/fdk-aac-${FDKAAC_VERSION}.tar.gz | \
+        tar -zx --strip-components=1 && \
+        autoreconf -fiv && \
+        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
+        make && \
+        make install && \
+        make distclean && \
+        rm -rf ${DIR}
 #        rm -rf ${DIR} && \
 #RUN  \
 ## ffmpeg https://ffmpeg.org/
@@ -210,14 +212,14 @@ RUN        DIR=$(mktemp -d) && cd ${DIR} && \
         --enable-gpl \
         --enable-libopencore-amrnb \
         --enable-libopencore-amrwb \
-#        --enable-libfdk_aac \
+        --enable-libfdk_aac \
         --enable-libmp3lame \
-        --enable-libopus \
+#        --enable-libopus \
         --enable-libtheora \
         --enable-libvorbis \
-        --enable-libvpx \
+#        --enable-libvpx \
         --enable-libx264 \
-        --enable-libx265 \
+#        --enable-libx265 \
         --enable-libxvid \
         --enable-nonfree \
         --enable-openssl \
