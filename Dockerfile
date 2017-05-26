@@ -1,4 +1,4 @@
-FROM        debian:jessie
+FROM        debian:jessie-backports
 
 CMD         ["--help"]
 ENTRYPOINT  ["ffmpeg"]
@@ -221,4 +221,3 @@ RUN         apt-key adv --keyserver keyserver.ubuntu.com --recv-key '5C808C2B655
 #        apt-get clean -y && \
 #        rm -rf /var/lib/apt/lists && \
 #        ffmpeg -buildconf
-
