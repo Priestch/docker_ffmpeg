@@ -5,7 +5,7 @@
 # https://hub.docker.com/r/jrottenberg/ffmpeg/
 #
 #
-FROM        ubuntu:16.04
+FROM        debian:jessie
 MAINTAINER  Julien Rottenberg <julien@rottenberg.info>
 
 
@@ -14,8 +14,9 @@ ENTRYPOINT  ["ffmpeg"]
 WORKDIR     /tmp/workdir
 
 
-ENV         FFMPEG_VERSION=3.2.5     \
+ENV         FFMPEG_VERSION=3.3.1     \
             FDKAAC_VERSION=0.1.5      \
+            LAME_MAJOR_VERSION=3.99   \
             LAME_VERSION=3.99.5       \
             OGG_VERSION=1.3.2         \
             OPENCOREAMR_VERSION=0.1.4 \
@@ -140,7 +141,7 @@ RUN      buildDeps="autoconf \
 #RUN  \
 ## libmp3lame http://lame.sourceforge.net/
         DIR=$(mktemp -d) && cd ${DIR} && \
-        curl -sL https://downloads.sf.net/project/lame/lame/${LAME_VERSION%.*}/lame-${LAME_VERSION}.tar.gz | \
+        curl -sL https://downloads.sf.net/project/lame/lame/${LAME_MAJOR_VERSION}/lame-${LAME_VERSION}.tar.gz | \
         tar -zx --strip-components=1 && \
         ./configure --prefix="${SRC}" --bindir="${SRC}/bin" --disable-static --enable-nasm --datarootdir="${DIR}" && \
         make && \
@@ -157,17 +158,17 @@ RUN      buildDeps="autoconf \
         make && \
         make install && \
         rm -rf ${DIR} && \
-#RUN  \
-## fdk-aac https://github.com/mstorsjo/fdk-aac
-        DIR=$(mktemp -d) && cd ${DIR} && \
-        curl -sL https://github.com/mstorsjo/fdk-aac/archive/v${FDKAAC_VERSION}.tar.gz | \
-        tar -zx --strip-components=1 && \
-        autoreconf -fiv && \
-        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
-        make && \
-        make install && \
-        make distclean && \
-        rm -rf ${DIR} && \
+##RUN  \
+### fdk-aac https://github.com/mstorsjo/fdk-aac
+#        DIR=$(mktemp -d) && cd ${DIR} && \
+#        curl -sL https://github.com/mstorsjo/fdk-aac/archive/v${FDKAAC_VERSION}.tar.gz | \
+#        tar -zx --strip-components=1 && \
+#        autoreconf -fiv && \
+#        ./configure --prefix="${SRC}" --disable-static --datadir="${DIR}" && \
+#        make && \
+#        make install && \
+#        make distclean && \
+#        rm -rf ${DIR} && \
 #RUN  \
 ## ffmpeg https://ffmpeg.org/
         DIR=$(mktemp -d) && cd ${DIR} && \
@@ -186,7 +187,7 @@ RUN      buildDeps="autoconf \
         --enable-gpl \
         --enable-libopencore-amrnb \
         --enable-libopencore-amrwb \
-        --enable-libfdk_aac \
+#        --enable-libfdk_aac \
         --enable-libmp3lame \
         --enable-libopus \
         --enable-libtheora \
