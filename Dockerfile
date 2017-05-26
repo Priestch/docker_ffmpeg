@@ -9,8 +9,8 @@ FROM        debian:jessie
 MAINTAINER  Julien Rottenberg <julien@rottenberg.info>
 
 
-CMD         ["--help"]
-ENTRYPOINT  ["ffmpeg"]
+CMD         ["."]
+ENTRYPOINT  ["ls"]
 WORKDIR     /tmp/workdir
 
 
