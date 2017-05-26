@@ -238,15 +238,16 @@ RUN        DIR=$(mktemp -d) && cd ${DIR} && \
         cd tools && \
         make qt-faststart && \
         cp qt-faststart ${SRC}/bin && \
-        rm -rf ${DIR} && \
+        rm -rf ${DIR}
+#        rm -rf ${DIR} && \
 
 ## cleanup
-        cd && \
-        apt-get purge -y ${buildDeps} && \
-        apt-get autoremove -y && \
-        apt-get clean -y && \
-        rm -rf /var/lib/apt/lists && \
-        ffmpeg -buildconf
+#        cd && \
+#        apt-get purge -y ${buildDeps} && \
+#        apt-get autoremove -y && \
+#        apt-get clean -y && \
+#        rm -rf /var/lib/apt/lists && \
+#        ffmpeg -buildconf
 
 # Let's make sure the app built correctly
 # Convenient to verify on https://hub.docker.com/r/jrottenberg/ffmpeg/builds/ console output
